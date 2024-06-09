@@ -1,0 +1,37 @@
+include <LiquidCrystal.h>
+LiquidCrystal lcd(2,4,6,8,10,12);
+int LED = 3;
+int buzzer=52; 
+int sensor=5;
+
+void setup() {
+  Serial.begin(9600); 
+  Serial.println("Serial Working");
+  pinMode(LED, OUTPUT);
+  pinMode(buzzer,OUTPUT);
+  lcd.begin(16, 2);
+  lcd.print("Sensor Ready");
+}
+
+void loop() {
+  int sensorStatus = digitalRead(sensor); 
+
+  if (sensorStatus == 1) {
+    
+    digitalWrite(LED, HIGH); 
+    digitalWrite(buzzer,HIGH);
+
+    Serial.println("Motion Detected!"); 
+    lcd.clear();
+    lcd.print("Motion Detected!");
+  } else {
+    digitalWrite(LED, LOW); 
+    digitalWrite(buzzer,LOW);
+
+    Serial.println("Motion Ended!"); 
+    lcd.clear();
+    lcd.print("Motion Ended!");
+  }
+
+  delay(500); 
+}
